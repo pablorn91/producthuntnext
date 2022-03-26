@@ -13,6 +13,7 @@ const Layout = ({children}) => {
                 --grisClaro: #6f6f6f;
                 --grisClaro2: #e1e1e1;
                 --naranja: #da552f;
+                --rojo: #e62d46;
               }
               html {
                 font-size: 62.5%;

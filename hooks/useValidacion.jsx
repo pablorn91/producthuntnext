@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useState } from 'react/cjs/react.production.min'
 
 const useValidacion = ( stateInicial, validar, fn) => {
 
@@ -17,7 +16,7 @@ const useValidacion = ( stateInicial, validar, fn) => {
 
             setSubmitForm(false)
         }
-    }, [])
+    }, [errores])
 
     //funcion que se ejecuta conforme al usuario escriba algo
     const handleChange = e => {
@@ -35,12 +34,18 @@ const useValidacion = ( stateInicial, validar, fn) => {
         setSubmitForm(true)
     }
 
+    //cuando se realiza el evento de blur
+    const handleBlur = () => {
+        const erroresValidacion = validar(valores)
+        setErrores(erroresValidacion)
+    }
+
   return {
       valores,
       errores,
-      submitForm,
       handleChange,
-      handleSubmit
+      handleSubmit,
+      handleBlur
   }
 }
 
