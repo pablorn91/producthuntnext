@@ -1,16 +1,17 @@
-import { Fragment } from "react"
+import React from "react"
 import Header from "./Header"
 import { Global, css } from '@emotion/react'
 import Head from "next/head"
 
 const Layout = ({children}) => {
   return (
-    <Fragment>
+    <>
         <Global 
             styles={css`
               :root {
                 --gris: #3d3d3d;
                 --grisClaro: #6f6f6f;
+                --grisClaro2: #e1e1e1;
                 --naranja: #da552f;
               }
               html {
@@ -66,7 +67,7 @@ const Layout = ({children}) => {
         <main>
           {children}
         </main>
-    </Fragment>
+    </>
   )
 }
 
