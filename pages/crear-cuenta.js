@@ -8,8 +8,8 @@ import { Formulario, Campo, InputSubmit, Error } from '../components/ui/Formular
 import useValidacion from '../hooks/useValidacion';
 import validarCrearCuenta from '../validacion/validarCrearCuenta';
 
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'; 
-import { auth } from '../firebase';
+//firebase
+import { registrar } from '../firebase';
 
 const STATE_INICIAL = {
     nombre: '',
@@ -19,7 +19,7 @@ const STATE_INICIAL = {
 
 export default function CrearCuenta() {
 
-    const [ error, setError ] = useState('');
+    const [ error, setError ] = useState(false);
 
     const { valores, errores, handleChange, handleSubmit, handleBlur } = useValidacion(STATE_INICIAL, validarCrearCuenta, crearcuenta)
 
@@ -27,10 +27,7 @@ export default function CrearCuenta() {
 
     async function crearcuenta() {
         try {
-            await createUserWithEmailAndPassword(auth, email, password )
-            await updateProfile(auth.currentUser,{
-               displayName: nombre
-           })
+           await registrar(valores)
            Router.push('/');
 
         } catch (error) {
