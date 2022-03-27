@@ -1,6 +1,9 @@
 import Link from "next/link"
 import styled from "@emotion/styled"
 
+//sesion con firebase
+import useAutenticacion from '../../hooks/useAutenticacion'
+
 const Nav = styled.nav`
     padding-left: 2rem;
     a {
@@ -16,11 +19,16 @@ const Nav = styled.nav`
 `
 
 const Navegacion = () => {
+
+  const usuario = useAutenticacion()
+
   return (
     <Nav>
             <Link href="/">Inicio</Link>
             <Link href="/populares">Populares</Link>
-            <Link href="/nuevo-producto">Nuevo Producto</Link>
+            { usuario && (
+              <Link href="/nuevo-producto">Nuevo Producto</Link>
+            )}
     </Nav>
   )
 }

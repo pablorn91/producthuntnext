@@ -3,7 +3,12 @@ import { initializeApp } from "firebase/app";
 
 import { getAuth } from 'firebase/auth'
 
-import { createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword } from 'firebase/auth'; 
+import { 
+    createUserWithEmailAndPassword, 
+    updateProfile, 
+    signInWithEmailAndPassword, 
+    signOut 
+} from 'firebase/auth'; 
 
 const firebaseConfig = {
   apiKey: "AIzaSyBOetHKriT-3kdcdnWREv4Cgj1PPOenVb4",
@@ -32,4 +37,9 @@ async function login({email,password}) {
   return await signInWithEmailAndPassword(auth, email, password)
 }
 
-export { registrar, login };
+//Cerrar sesión del usuario
+async function cerrarSesion() {
+  await signOut(auth)
+}
+
+export { auth, registrar, login, cerrarSesion };

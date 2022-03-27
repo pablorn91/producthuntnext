@@ -6,6 +6,11 @@ import styled from "@emotion/styled"
 import { css } from "@emotion/react"
 import Boton from "../ui/Boton"
 
+//sesion con firebase
+import useAutenticacion from '../../hooks/useAutenticacion'
+//firebase
+import { cerrarSesion  } from '../../firebase';
+
 
 const ContenedorHeader = styled.div`
   max-width: 1200px;
@@ -29,7 +34,7 @@ const Logo = styled.p`
 
 const Header = () => {
 
-  const usuario = false;
+  const usuario = useAutenticacion()
 
   return (
     <header
@@ -73,11 +78,12 @@ const Header = () => {
                     css={css`
                       margin-right: 2rem;
                     `}
-                    >Hola: Pablo</p>
+                    >Hola: {usuario.displayName}</p>
 
                     <Boton 
                       type="button"
                       bgColor="true"
+                      onClick={() =>  cerrarSesion()}
                     >Cerrar Sesión</Boton>
                 </>
 
