@@ -57,9 +57,9 @@ export default function NuevoProducto() {
             (error) => console.log(error),
             () => {
                 getDownloadURL(uploadTask.snapshot.ref)
-                .then(url => {
-                    console.log(url);
-                    setUrlImagen(url)
+                .then(imagenUrl => {
+                    console.log(imagenUrl);
+                    setUrlImagen(imagenUrl)
 
                         //crear el objeto de nuevo producto
                     const producto = {
