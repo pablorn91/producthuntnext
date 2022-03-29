@@ -27,7 +27,6 @@ const STATE_INICIAL = {
 export default function NuevoProducto() {
 
   const [ error, setError ] = useState(false);
-
   const [ urlImagen, setUrlImagen ] = useState('')
 
   const [ prog, setProg ]= useState(0)
@@ -57,16 +56,14 @@ export default function NuevoProducto() {
             (error) => console.log(error),
             () => {
                 getDownloadURL(uploadTask.snapshot.ref)
-                .then(imagenUrl => {
-                    console.log(imagenUrl);
-                    setUrlImagen(imagenUrl)
-
+                .then(urlimagen => {
+                    console.log(urlimagen);
                         //crear el objeto de nuevo producto
                     const producto = {
                         nombre,
                         empresa,
                         url,
-                        urlImagen,
+                        urlimagen,
                         descripcion,
                         votos: 0,
                         comentarios: [],
@@ -76,6 +73,7 @@ export default function NuevoProducto() {
                     //insertarlo en la base de datos
                     const docRef = addDoc(collection(db, "productos"), producto)
                     console.log("Documento agregado con ID: ", docRef)
+                    router.push('/')
                 })
             }
             )    
