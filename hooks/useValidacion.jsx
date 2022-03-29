@@ -26,6 +26,14 @@ const useValidacion = ( stateInicial, validar, fn) => {
         })
     }
 
+    //maneja el cambio de state de imagen
+    const handleChangeImagen = e => {
+        setValores({
+            ...valores,
+            imagen: e.target.files[0]
+        })
+    }
+
     //funcion que se ejecuta cuando el usuario hace submit
     const handleSubmit = e => {
         e.preventDefault()
@@ -44,6 +52,7 @@ const useValidacion = ( stateInicial, validar, fn) => {
       valores,
       errores,
       handleChange,
+      handleChangeImagen,
       handleSubmit,
       handleBlur
   }

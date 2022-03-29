@@ -3,6 +3,10 @@ import { initializeApp } from "firebase/app";
 
 import { getAuth } from 'firebase/auth'
 
+import { getFirestore } from 'firebase/firestore'
+
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
+
 import { 
     createUserWithEmailAndPassword, 
     updateProfile, 
@@ -24,6 +28,10 @@ const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 
+const db = getFirestore();
+
+const storage = getStorage(app)
+
 //Registrar usuario
 async function registrar({nombre,email,password}) {
   await createUserWithEmailAndPassword(auth, email, password )
@@ -42,4 +50,4 @@ async function cerrarSesion() {
   await signOut(auth)
 }
 
-export { auth, registrar, login, cerrarSesion };
+export { auth, db, storage, ref, uploadBytesResumable, getDownloadURL, registrar, login, cerrarSesion };
