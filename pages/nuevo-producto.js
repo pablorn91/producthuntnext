@@ -3,7 +3,7 @@ import { css } from '@emotion/react'
 import Router, { useRouter } from 'next/router';
 import Layout from "../components/layout/Layout"
 import { Formulario, Campo, InputSubmit, Error } from '../components/ui/Formulario'
-
+import Error404 from '../components/layout/404';
 //validaciones
 import useValidacion from '../hooks/useValidacion';
 import validarCrearProducto from '../validacion/validarCrearProducto';
@@ -67,7 +67,12 @@ export default function NuevoProducto() {
                         descripcion,
                         votos: 0,
                         comentarios: [],
-                        creado: Date.now()
+                        creado: Date.now(),
+                        creador: {
+                            id: usuario.uid,
+                            nombre: usuario.displayName
+                        },
+                        haVotado: []
                     }
 
                     //insertarlo en la base de datos
@@ -83,109 +88,113 @@ export default function NuevoProducto() {
 return (
  <div>
      <Layout>
-      <>
-          <h1
-            css={css`
-              text-align: center;
-              margin-top: 5rem;
-            `}
-          >Nuevo Producto</h1>
-          <Formulario
-              onSubmit={handleSubmit}
-              noValidate
-          >
-            <fieldset>
-                <legend>Información General</legend>
-            
-                <Campo>
-                    <label htmlFor='nombre'>Nombre</label>
-                    <input
-                        type="text"
-                        id='nombre'
-                        placeholder='Tu Nombre'
-                        name='nombre'
-                        value={nombre}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                    />
-                </Campo>
 
-                { errores.nombre && <Error>{errores.nombre}</Error>}
+         { usuario ? (
+            <>
+                <h1
+                css={css`
+                    text-align: center;
+                    margin-top: 5rem;
+                `}
+                >Nuevo Producto</h1>
+                <Formulario
+                    onSubmit={handleSubmit}
+                    noValidate
+                >
+                <fieldset>
+                    <legend>Información General</legend>
+                
+                    <Campo>
+                        <label htmlFor='nombre'>Nombre</label>
+                        <input
+                            type="text"
+                            id='nombre'
+                            placeholder='Nombre del Producto'
+                            name='nombre'
+                            value={nombre}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                        />
+                    </Campo>
     
-                <Campo>
-                    <label htmlFor='empresa'>Empresa</label>
-                    <input
-                        type="text"
-                        id='empresa'
-                        placeholder='Nombre Empresa o Compañia'
-                        name='empresa'
-                        value={empresa}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                    />
-                </Campo>
-
-                { errores.empresa && <Error>{errores.empresa}</Error>}
+                    { errores.nombre && <Error>{errores.nombre}</Error>}
+        
+                    <Campo>
+                        <label htmlFor='empresa'>Empresa</label>
+                        <input
+                            type="text"
+                            id='empresa'
+                            placeholder='Nombre Empresa o Compañia'
+                            name='empresa'
+                            value={empresa}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                        />
+                    </Campo>
     
-                 <Campo>
-                    <label htmlFor='imagen'>Imagen</label>
-                    <input
-                        type="file"
-                        id='imagen'
-                        name='imagen'
-                        accept="image/png, image/jpeg"
-                        onChange={handleChangeImagen}
-                    />
-                </Campo>
-
-                { errores.imagen && <Error>{errores.imagen}</Error>}
+                    { errores.empresa && <Error>{errores.empresa}</Error>}
+        
+                        <Campo>
+                        <label htmlFor='imagen'>Imagen</label>
+                        <input
+                            type="file"
+                            id='imagen'
+                            name='imagen'
+                            accept="image/png, image/jpeg"
+                            onChange={handleChangeImagen}
+                        />
+                    </Campo>
     
-                <Campo>
-                    <label htmlFor='url'>URL</label>
-                    <input
-                        type="url"
-                        id='url'
-                        name='url'
-                        placeholder='URL de tu producto'
-                        value={url}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                    />
-                </Campo>
-
-                { errores.url && <Error>{errores.url}</Error>}
-
-            </fieldset>
-
-            <fieldset>
-
-                <legend>Sobre tu Producto</legend>
-
-                <Campo>
-                  <label htmlFor='descripcion'>Descripción</label>
-                  <textarea
-                      id='descripcion'
-                      name='descripcion'
-                      value={descripcion}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                  />
-                </Campo>
-
-            { errores.descripcion && <Error>{errores.descripcion}</Error>}
-
-            </fieldset>
-
- 
-            { error && <Error>{error}</Error>}
-            <InputSubmit
-                type="submit"
-                value="Crear Producto"
-            />
-
-          </Formulario>
-
-      </>
+                    { errores.imagen && <Error>{errores.imagen}</Error>}
+        
+                    <Campo>
+                        <label htmlFor='url'>URL</label>
+                        <input
+                            type="url"
+                            id='url'
+                            name='url'
+                            placeholder='URL de tu producto'
+                            value={url}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                        />
+                    </Campo>
+    
+                    { errores.url && <Error>{errores.url}</Error>}
+    
+                </fieldset>
+    
+                <fieldset>
+    
+                    <legend>Sobre tu Producto</legend>
+    
+                    <Campo>
+                        <label htmlFor='descripcion'>Descripción</label>
+                        <textarea
+                            id='descripcion'
+                            name='descripcion'
+                            value={descripcion}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                        />
+                    </Campo>
+    
+                { errores.descripcion && <Error>{errores.descripcion}</Error>}
+    
+                </fieldset>
+    
+        
+                { error && <Error>{error}</Error>}
+                <InputSubmit
+                    type="submit"
+                    value="Crear Producto"
+                />
+    
+                </Formulario>
+    
+            </>
+         ) : <Error404/> }
+      
      </Layout>
  </div>
 )

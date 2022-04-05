@@ -8,6 +8,6 @@ export default function Error404 () {
                 margin-top: 2rem;
                 text-align: center;
             `}
-        >Producto no encontrado</h1>
+        >No se puede mostrar</h1>
     )
 }

@@ -50,4 +50,13 @@ async function cerrarSesion() {
   await signOut(auth)
 }
 
-export { auth, db, storage, ref, uploadBytesResumable, getDownloadURL, registrar, login, cerrarSesion };
+export {  auth, 
+          db, 
+          storage, 
+          ref, 
+          uploadBytesResumable, 
+          getDownloadURL, 
+          registrar, 
+          login, 
+          cerrarSesion 
+};
